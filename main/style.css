@@ -1,0 +1,189 @@
+﻿@charset "utf-8";
+
+/*ウィンドウ背景色の設定*/
+body {
+  background: // url(img/図2.png) ;
+  background-attachment: fixed;
+}
+
+/*検索フォーム*/
+table input{
+  font-size: 180%;
+  margin-left: 0%;
+  margin-bottom: 10%;
+  
+  background-color: #fff;
+  color: #000;
+  
+}
+
+/*リンク色の設定*/
+a {
+  color: #5b9bd5;
+}
+a:hover {
+  color: #ff705b;
+  text-decoration: none;
+}
+
+
+/*ヘッダー,ナビ,フッターの共通設定*/
+header,nav,footer {
+  text-align: center; //文字・中央配置
+}
+
+-- 
+/*ナビ*/
+.menu li{
+	list-style-type:none;
+/*記号やアルファベットなどをマーカーにするマーカーとは●や1.などのもの<ul>的な*/
+	display:inline-block;
+/*文字を囲む*/
+	width:180px;
+	margin:0 10px;
+}
+
+.menu a{/*HOME・投稿　など*/
+	display:block;
+/*ブロックで囲む*/
+	padding:10px;
+	background:#6699FF;
+	border-radius:8px;
+	color:#fff;
+	text-decoration:none;
+}
+
+.menu a:hover{
+	background:#B3CCFF;
+}
+
+/*ナビ*/
+.menu li{
+	list-style-type:none;
+/*記号やアルファベットなどをマーカーにする。
+　マーカーとは●や1.などのもの<ul>的な*/
+
+/*文字を囲む　角丸四角を作成*/
+	display:inline-block;}
+/*配置調整*/
+	width:180px;
+	margin:0 10px;
+}
+
+
+/*ページタイトルの設定*/
+h1 {
+  width: 300px;
+  margin: 40px auto;
+  padding: 30px;
+  border: 5px solid #95dbbd;
+  background-color: #6fbb9a;
+  color: #fff;
+  font-size: 300%;
+  text-align: center;
+  line-height: 1;
+  border-radius:50%;
+  text-shadow:1px 1px 2px #307657;
+  box-shadow:0 0 10px rgba(0,0,0.5);
+  background-image:linear-graient(to bottom,#6fbb9a,#4a9b79);
+  font-family:'Limelight',cursive;
+}
+
+/*大見出しの設定*/
+.h {
+  padding: 10px;
+  margin-bottom: 30px;
+  border: 1px dotted #FFC000;
+  border-left: 15px solid #FFC000;
+  color: #000;
+}
+
+
+/*投稿作品-個人*/
+#ログイン{
+  padding: 10px;
+  margin-bottom: 30px;
+  border: 1px solid #FFC000;
+  color: #000;
+  font-size: 120%;
+}
+
+/*時間の設定*/
+.time{
+  text-align: right;
+}
+
+
+/*コンテンツ枠の設定-白枠*/
+#contents {
+  width: 1100px;
+  margin: 40px auto;
+  padding: 40px 80px;
+  border: 1px solid #f6bb9e;
+  background-color: #fff;
+  z-index: 1;
+  position: relative;
+}
+
+/*「もっと見る」リンクの設定*/
+.more {
+  text-align: right;
+}
+.more::after {
+  content: url(img/ico_arrow.png);
+  margin-left: 3px;
+  vertical-align: middle;
+}
+
+/*リンク種別アイコン*/
+a[target="_blank"]::after {
+  content: url(img/ico_blank.png);
+  margin-left: 5px;
+  vertical-align: middle;
+}
+a[href^="mailto:"]::after {
+  content: url(img/ico_mail.png);
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/*セクション間隔*/
+#contents > section + section {
+  margin-top: 80px;
+}
+
+/*回り込み設定*/
+
+.clear{
+  clear:both;
+}
+
+.imgL{
+  float:left;
+  margin-right:20px;
+}
+
+.imgR{
+  float:right;
+  margin-left:20px;
+
+}
+
+/*円形にクリップ*/
+.clearfix::after{
+content:"";
+display:block;
+clear:both;
+}
+/*〇にする*/
+.img-round{
+	border-radius:50%;
+  
+}
+
+footer{
+  color:#fff;
+  background-color: #003f71;
+}
+
+/*まずはお決まりのボックスサイズ算出をborer-boxに */
