@@ -1,0 +1,33 @@
+body{
+    background-color: gray;
+}
+main{
+
+    background-color: white;
+    margin-right: 20%;
+    margin-left: 20%;
+    padding-bottom: 50%;
+    size: 170%;
+
+}
+table{
+    float: right;
+}
+table input{
+    font-size: 150%;
+    margin-left: -20%;
+    margin-bottom: 10%;
+    
+    background-color: blue;
+    color: black;
+    
+}
+
+table input::placeholder{
+    color: black;
+    size: 300px;
+}
+input{
+    background-color: blue;
+    float: right;
+}
