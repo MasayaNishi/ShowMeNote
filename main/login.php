@@ -19,7 +19,7 @@
                 $_SESSION['user_id'] = $result['user_id'];
                 $_SESSION['user_name'] = $result['user_name'];
                 
-                header('Location: http://localhost/html/そープロ/home.php');
+                header('Location: http://localhost/ShowMeNote2/main/home.php');
                 exit();
             }else{
                 print 'ユーザIDまたはパスワードが誤りです。';

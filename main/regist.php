@@ -23,7 +23,7 @@
                     $_SESSION['user_id'] = $id;
                     $_SESSION['user_name'] = $name;
                     
-                    header('Location: http://localhost/html/そープロ/home.php');
+                    header('Location: http://localhost/ShowMeNote2/main/home.php');
                     
                     
                 }else{
