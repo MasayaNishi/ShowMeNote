@@ -31,14 +31,14 @@
   <h2 class="h">キーワード検索</h2>
   <main>
     <table>
-    <form>
+    <form action="result.php" method="post">
       <tr>
-      <td><input placeholder="検索" type="text"/></td>
+          <td><input placeholder="検索" type="text" name="keyword"/></td>
+          <td><input type="submit" name="regist" value="検索"></td>
       </tr>
     </form>
     </table>
     
-    <input type="button" name="regist" value="検索">
 </main>
   <strong></strong></p>
 </section>
