@@ -18,14 +18,16 @@
                 $result = $sql->fetch(PDO::FETCH_ASSOC);
                 
                 if(empty($result['note_id'])){
-                    $file = basename($_FILES['file']['name']);
-                    $file_p = 'img/' . $file;
+                    $image = substr(uniqid(mt_rand()), 0, 6);
+                    $image .= '.jpg';
+                    //$file = basename($_FILES['file']['name']);
+                    $file_p = 'img/' . $image;
                     $sql = NULL;
                     $sql = $pdo->prepare('INSERT INTO note VALUES(?, ?, ?, 0)');
-                    $sql->execute([$title, $u_id, $file]);
+                    $sql->execute([$title, $u_id, $image]);
                     
                     if(move_uploaded_file($_FILES['file']['tmp_name'], $file_p)){
-                        header('Location: http://localhost/showmenote/main/home.php');
+                        header('Location: http://localhost/localtest/main/home.php');
                     }
                 }else{
                     array_push($errmsg, 'そのタイトルは使われています。');
