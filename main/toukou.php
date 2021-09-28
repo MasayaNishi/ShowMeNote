@@ -96,7 +96,7 @@
             <div id="preview"></div>
             <label for="example" id="tuika" class="btn btn-flat">
                 <span>画像の追加</span>
-                <input type="file" id="example" class="file_upload" accept=".png, .jpeg, jpg" name="file">
+                <input type="file" id="example" class="file_upload" accept=".png, .jpeg, .jpg" name="file">
                 <script src="toukou.js"></script>
              </label>
     
