@@ -12,11 +12,11 @@
 
 <body>
   <div id="roguin">
-    <a href="roguin.php" class="roguin-botan">
+    <a href="login.php" class="roguin-botan">
       ログイン
     </a>
 
-    <a href="touroku.php" class="touroku-botan">
+    <a href="regist.php" class="touroku-botan">
       会員登録
     </a>
   </div>
