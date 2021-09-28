@@ -18,10 +18,10 @@
 
 <nav>
   <ul class="menu">
-    <li><a href="home.html">　　　　HOME 　　　　</a></li>
-    <li><a href="toukou.html">　　　　  投稿 　　　　</a></li>
-    <li><a href="rank.html">　　　ランキング　　　</a></li>
-    <li><a href="box.html">　スクラップボックス　</a></li>
+    <li><a href="home.php">　　　　HOME 　　　　</a></li>
+    <li><a href="toukou.php">　　　　  投稿 　　　　</a></li>
+    <li><a href="rank.php">　　　ランキング　　　</a></li>
+    <li><a href="box.php">　スクラップボックス　</a></li>
   </ul>
 </nav>
 <!--　ここまでが基本ヘッダー　-->
@@ -40,13 +40,13 @@
         </a>
       </section>
     </section>
-    
+
     </main>
 
 <!--ここから基本フッター-->
 <a href="" class="btn btn--circle btn--circle-c btn--shadow">
   <i class="fas fa-arrow-up"></i>
-  ↑ 
+  ↑
 </a>
 <footer>
 
