@@ -25,7 +25,7 @@
                     $sql->execute([$title, $u_id, $file]);
                     
                     if(move_uploaded_file($_FILES['file']['tmp_name'], $file_p)){
-                        header('Location: http://localhost/localtest/main/home.php');
+                        header('Location: http://localhost/showmenote/main/home.php');
                     }
                 }else{
                     array_push($errmsg, 'そのタイトルは使われています。');
