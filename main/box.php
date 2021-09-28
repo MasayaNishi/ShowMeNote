@@ -12,17 +12,17 @@
 
 <body>
   <div id="roguin">
-    <a href="roguin.html" class="roguin-botan">
+    <a href="roguin.php" class="roguin-botan">
       ログイン
     </a>
 
-    <a href="touroku.html" class="touroku-botan">
+    <a href="touroku.php" class="touroku-botan">
       会員登録
     </a>
   </div>
 
   <header>
-  <a href="home.html"> <img src="img/rogo.png" width="1000" height="200" alt="show me note!" class="rogo"></a>
+  <a href="home.php"> <img src="img/rogo.png" width="1000" height="200" alt="show me note!" class="rogo"></a>
   </header>
 
 <nav>
