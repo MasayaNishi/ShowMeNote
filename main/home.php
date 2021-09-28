@@ -18,7 +18,7 @@
 
 <nav>
   <ul class="menu">
-    <li><a href="home.html">　　　　HOME 　　　　</a></li>
+    <li><a href="home.php">　　　　HOME 　　　　</a></li>
     <li><a href="toukou.php">　　　　  投稿 　　　　</a></li>
     <li><a href="rank.php">　　　ランキング　　　</a></li>
     <li><a href="box.php">　スクラップボックス　</a></li>

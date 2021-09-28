@@ -1,0 +1,199 @@
+/*まずはお決まりのボックスサイズ算出をborer-boxに */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+input{
+    font-size: 120%;
+    margin-left: 0%;
+    margin-bottom: 0%;
+    background-color: #fff;
+    color: #000;
+    float: center  ;
+    
+  }
+  div{
+    text-align : center ; 
+  }
+
+.taitoru{
+    width: 700px;
+    height: 50px;
+}
+
+.tagu{
+    width: 700px;
+    height: 50px;
+}
+.gazou{
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+}
+
+
+ /* アップロードボタンのスタイルを無効にする */
+label > input {
+  display:none;
+  }
+
+#preview img {
+  width: 800px;
+  height: 450px;
+  margin: 10px;
+  border: solid 1px silver;  
+  position: absolute;
+  top: 202px;
+  bottom: 0;
+  left: 140px;
+  right: 0px;
+  z-index: 20;
+  }
+
+/*スクラップボックス*/
+a.btn--yellow.btn--border-dashed {
+  right: 70px;
+  color: #ffa500;
+  border: 2px dashed #ffa500;
+  float: right;
+  }
+
+ 
+
+
+/*画像挿入　ボタン設定*/
+.btn-flat {
+  overflow: hidden;
+  width: 350px;
+  height: 70px;
+  left: 70px;
+  padding: 15px;
+  color: #000;
+  border-radius: 0;
+  background: #fff;
+  border: 2px solid #009999;
+}
+
+.btn-flat span {
+  position: relative;
+}
+
+.btn-flat:before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+  -webkit-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+  -webkit-transform: translateX(-96%);
+  transform: translateX(-96%);
+  background: #009999;
+}
+
+.btn-flat:hover:before {
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+/*投稿ボタン*/
+.btn-border {
+  right: 30px;
+  padding: 0.7rem 4rem;
+  border: 3px solid #000;
+  border-radius: 0;
+  background: #fff;
+  float: right  ;
+}
+
+.btn-border:before {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 100%;
+  content: '';
+  -webkit-transition: all .3s;
+  transition: all .3s;
+
+  border-top: 3px dotted #000;
+}
+
+.btn-border:after {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 100%;
+  content: '';
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  border-top: 3px dotted #000;
+}
+
+.btn-border:hover:before {
+  top: -3px;
+  background: #000;
+}
+
+.btn-border:hover:after {
+  bottom: -3px;
+  background: #000;
+}
+
+  /*↑のCSS*/
+a.btn--circle {
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  float:right;
+  color: #000;
+  background: #fff;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+
+a.btn--circle i {
+  font-size: 150%;
+  line-height: 60px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  letter-spacing: 0;
+}
+a.btn--circle:hover i {
+  line-height: 55px;
+}
