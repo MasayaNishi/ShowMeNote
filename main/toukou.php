@@ -1,47 +1,61 @@
 <?php
-    session_start();
+session_start();
 
-    $errmsg = [];
+$errmsg = [];
 
-    if(isset($_REQUEST['post'])){
-
-        $u_id = $_SESSION['user_id'];
-        $title = $_REQUEST['title'];
-        $tag = $_REQUEST['tag'];
-
-        if(!empty(is_uploaded_file($_FILES['file']['tmp_name']) && $title && $tag)){
-            try {
-                $pdo = new PDO('mysql:host=localhost; dbname=showmenote; charset=utf8',
-                    'root', '');
-                $sql = $pdo->prepare('SELECT note_id FROM note WHERE note_id=?');
-                $sql->execute([$title]);
-                $result = $sql->fetch(PDO::FETCH_ASSOC);
-
-                if(empty($result['note_id'])){
-                    $image = substr(uniqid(mt_rand()), 0, 6);
+if(isset($_REQUEST['post'])){
+    
+    $u_id = $_SESSION['user_id'];
+    $title = $_REQUEST['title'];
+    $tag = $_REQUEST['tag'];
+    
+    if(!empty(is_uploaded_file($_FILES['file']['tmp_name']) && $title && $tag)){
+        try {
+            $pdo = new PDO('mysql:host=localhost; dbname=showmenote; charset=utf8',
+                'root', '');
+            $sql = $pdo->prepare('SELECT note_id FROM note WHERE note_id=?');
+            $sql->execute([$title]);
+            $result = $sql->fetch(PDO::FETCH_ASSOC);
+            
+            if(empty($result['note_id'])){
+                
+                //image_id生成
+                $image = substr(mt_rand(), 0, 6);
+                $image .= '.jpg';
+                
+                //image_id確認用呼び出し
+                $sql = NULL;
+                $sql = $pdo->prepare('SELECT image_id FROM note WHERE image_id=?');
+                $sql->execute([$image]);
+                $imgResult = $sql->fetch(PDO::FETCH_ASSOC);
+                
+                while (!empty($imgResult)) {
+                    $image = substr(mt_rand(), 0, 6);
                     $image .= '.jpg';
-                    //$file = basename($_FILES['file']['name']);
-                    $file_p = 'img/' . $image;
-                    $sql = NULL;
-                    $sql = $pdo->prepare('INSERT INTO note VALUES(?, ?, ?, 0)');
-                    $sql->execute([$title, $u_id, $image]);
-
-                    if(move_uploaded_file($_FILES['file']['tmp_name'], $file_p)){
-                        header('Location: http://localhost/localtest/main/home.php');
-                    }
-                }else{
-                    array_push($errmsg, 'そのタイトルは使われています。');
                 }
-
-            } catch (PDOException $e) {
-                print $e->getMessage();
-                exit();
+                
+                $file_p = 'img/' . $image;
+                $sql = NULL;
+                $sql = $pdo->prepare('INSERT INTO note VALUES(?, ?, ?, 0)');
+                $sql->execute([$title, $u_id, $image]);
+                
+                if(move_uploaded_file($_FILES['file']['tmp_name'], $file_p)){
+                    header('Location: http://localhost/showmenote/main/home.php');
+                }
+                
+            }else{
+                array_push($errmsg, 'そのタイトルは使われています。');
             }
-
-        }else{
-            array_push($errmsg, 'すべて入力・選択してください。');
+            
+        } catch (PDOException $e) {
+            print $e->getMessage();
+            exit();
         }
+        
+    }else{
+        array_push($errmsg, 'すべて入力・選択してください。');
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -83,29 +97,29 @@
 
 <main id="contents">　<!--白枠開始-->
     <section id="intro" class="clearfix">
-    <?php
+    <?php 
         foreach ($errmsg as $msg){
             print $msg;
         }
     ?>
         <form action="" method="post" enctype="multipart/form-data">
           <div><p><input type="text"  class="taitoru" name="title" placeholder="タイトル"  ></p></div>
-
+    
             <div><p><input type="text" class="tagu" name="tag" placeholder="タグ" ></p></div>
-
+    
             <div><p><img src="http://placehold.jp/800x450.png?text=画像" class="gazou"></p></div>
-
+    
             <div id="preview"></div>
             <label for="example" id="tuika" class="btn btn-flat">
                 <span>画像の追加</span>
                 <input type="file" id="example" class="file_upload" accept=".png, .jpeg, .jpg" name="file">
                 <script src="toukou.js"></script>
              </label>
-
+    
             <a  class="btn btn--yellow btn--border-dashed">スクラップボックス</a>
-
+    
             <br><br>
-
+    
             <label for="submit" class="btn btn-border">
               <span>投稿</span>
               <input type="submit" name="post" id="submit">
