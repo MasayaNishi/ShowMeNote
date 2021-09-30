@@ -32,6 +32,11 @@ if(isset($_REQUEST['post'])){
                 while (!empty($imgResult)) {
                     $image = substr(mt_rand(), 0, 6);
                     $image .= '.jpg';
+                    
+                    $sql = NULL;
+                    $sql = $pdo->prepare('SELECT image_id FROM note WHERE image_id=?');
+                    $sql->execute([$image]);
+                    $imgResult = $sql->fetch(PDO::FETCH_ASSOC);
                 }
                 
                 $file_p = 'img/' . $image;
