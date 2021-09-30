@@ -1,3 +1,20 @@
+<?php 
+    session_start();
+    
+    $u_id = $_SESSION['user_id'];
+    $u_name = $_SESSION['user_name'];
+    
+    try {
+        $pdo = new PDO('mysql:host=localhost; dbname=showmenote; charset=utf8',
+            'root', '');
+        
+    } catch (PDOException $e) {
+        print $e->getMessage();
+        exit();
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,7 +24,7 @@
 <meta name="description" content="我が家のアイドル、にゃんこ達を紹介します！可愛い猫写真を沢山掲載しています。">
 <link href="style.css" rel="stylesheet" media="all"><!--基本の設定-->
 <link href="rank.css" rel="stylesheet" media="all"><!--各種ボタンの設定-->
-<linl href="http://fonts.googleapis.com/css?family=Limelight">
+<link href="http://fonts.googleapis.com/css?family=Limelight">
 </head>
 
 <body>
@@ -39,6 +56,29 @@
     <section id="intro" class="clearfix">
       <h2 class="h">ランキング</h2>
 
+
+		<?php 
+		  $i = 1;
+		  $sql = $pdo->prepare('SELECT * FROM note ORDER BY ランキングポイント合計 DESC LIMIT 10');
+		  $sql->execute([]);
+		  
+		      foreach ($sql as $row){
+		          print '<section>';
+		          print '<h2 class="h-sub">' . $i . '位</h2>';
+		          print '<img src="img/' . $row['image_id'] . '" width="80" height="80" class="img-round imgL"><br>';
+		          print '<h3 class="h-sub">ユーザ名：' . $row['user_id'] . '</h3>';
+		          print '<a href ="./detail.php?note_id=' . $row['note_id'] . '">';
+		          print '<section id="ログイン">';
+		          print '<strong>タイトル：' . $row['note_id'] . '</strong>' . '<p　class="time">　時間//右揃えにしたい</p>';
+		          print '<span>#キーワード　#キーワード  </span>';
+		          print '</section>';
+		          print '</a>';
+		          print '</section>';
+		          $i++;
+		      }
+
+		?>
+<!-- 
       <section>
         <h2 class="h-sub">1位</h2>
         <img src="img/komachi.jpg" width="80" height="80" alt="小町" class="img-round imgL"><br>
@@ -158,6 +198,8 @@
          </section>
         </a>
       </section>
+      
+-->
     </section>
 
     </main>
