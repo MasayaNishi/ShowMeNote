@@ -25,6 +25,7 @@
 /*------ アイコンの変更開始 ------*/
     if(isset($_REQUEST['アイコンの変更'])){
         if(is_uploaded_file($_FILES['icon']['tmp_name'])){
+            
             //user_img生成
             $data = 'abcdefghijklmnopqrstuvwxyz1234567890';
             $create_id = str_shuffle($data);
