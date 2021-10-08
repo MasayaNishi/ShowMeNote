@@ -22,7 +22,7 @@
 ?>
 
 <?php 
-/*------アイコンの変更開始------*/
+/*------ アイコンの変更開始 ------*/
     if(isset($_REQUEST['アイコンの変更'])){
         if(is_uploaded_file($_FILES['icon']['tmp_name'])){
             //user_img生成
