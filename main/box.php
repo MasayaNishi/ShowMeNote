@@ -2,9 +2,7 @@
     session_start();
     
     $u_id = $_SESSION['user_id'];
-    /*
-        $u_name = $_SESSION['user_name'];
-    */
+    $u_name = $_SESSION['user_name'];
     
     try {
         $pdo = new PDO('mysql:host=localhost; dbname=showmenote2; charset=utf8',
