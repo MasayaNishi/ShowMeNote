@@ -52,7 +52,7 @@
             <form action="" method="post">
             	<table>
                     <tr>
-    	                <td><input placeholder="ユーザID" type="text" name="user_id" /></td>
+    	                <td><input placeholder="メールアドレス" type="email" name="user_id" /></td>
                     </tr>
                     <tr>
     	                <td><input placeholder="パスワード" type="password" name="password" /></td>

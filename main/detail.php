@@ -53,6 +53,7 @@
     <li><a href="toukou.php">　　　　  投稿 　　　　</a></li>
     <li><a href="rank.php">　　　ランキング　　　</a></li>
     <li><a href="box.php">　スクラップボックス　</a></li>
+    <li><a href="user.php">　　ユーザページ　　</a></li>
   </ul>
 </nav>
 

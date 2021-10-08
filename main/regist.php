@@ -25,11 +25,11 @@
                         $sql = $pdo->prepare('INSERT INTO user VALUES(?, ?, ?)');
                         $sql->execute([$id, $name, $pwd]);
                         
-                        //user_info情報追加
+                        //user_infoテーブルに追加
                         $sql2 = $pdo->prepare('INSERT INTO user_info VALUES(:id, :name, :img_name, null)');
                         $sql2->bindValue(':id', $id);
                         $sql2->bindValue(':name', $name);
-                        $sql2->bindValue(':img_name', '000000.jpg');
+                        $sql2->bindValue(':img_name', '00000.jpg');
                         $sql2->execute();
                         
                         $_SESSION['user_id'] = $id;
@@ -75,7 +75,7 @@
        <form action="" method="post">
            <table>
                <tr>
-        	   	<td><input placeholder="ユーザID" type="text" name="user_id"/></td>
+        	   	<td><input placeholder="メールアドレス" type="email" name="user_id"/></td>
                </tr>
                <tr>
         	   	<td><input placeholder="ユーザ名" type="text" name="user_name"/></td>
