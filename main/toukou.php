@@ -1,66 +1,73 @@
-<?php
-session_start();
-
-$errmsg = [];
-
-if(isset($_REQUEST['post'])){
+<?php 
+    session_start();
     
-    $u_id = $_SESSION['user_id'];
-    $title = $_REQUEST['title'];
-    $tag = $_REQUEST['tag'];
+    $errmsg = [];
     
-    if(!empty(is_uploaded_file($_FILES['file']['tmp_name']) && $title && $tag)){
-        try {
-            $pdo = new PDO('mysql:host=localhost; dbname=showmenote; charset=utf8',
-                'root', '');
-            $sql = $pdo->prepare('SELECT note_id FROM note WHERE note_id=?');
-            $sql->execute([$title]);
-            $result = $sql->fetch(PDO::FETCH_ASSOC);
-            
-            if(empty($result['note_id'])){
+    if(isset($_REQUEST['post'])){
+        
+        $u_id = $_SESSION['user_id'];
+        $title = $_REQUEST['title'];
+        $tag = $_REQUEST['tag'];
+        $offset = 1;
+        
+        if(!empty(is_uploaded_file($_FILES['file']['tmp_name']) && $title && $tag)){
+            try {
+                $pdo = new PDO('mysql:host=localhost; dbname=showmenote2; charset=utf8',
+                    'root', '');
+                $sql = $pdo->prepare('SELECT note_id FROM note WHERE note_id=?');
+                $sql->execute([$title]);
+                $result = $sql->fetch(PDO::FETCH_ASSOC);
                 
-                //image_id生成
-                $image = substr(mt_rand(), 0, 6);
-                $image .= '.jpg';
-                
-                //image_id確認用呼び出し
-                $sql = NULL;
-                $sql = $pdo->prepare('SELECT image_id FROM note WHERE image_id=?');
-                $sql->execute([$image]);
-                $imgResult = $sql->fetch(PDO::FETCH_ASSOC);
-                
-                while (!empty($imgResult)) {
-                    $image = substr(mt_rand(), 0, 6);
+                if(empty($result['note_id'])){
+                    
+                    //image_id生成
+                    $data = 'abcdefghijklmnopqrstuvwxyz1234567890';
+                    $create_id = str_shuffle($data);
+                    $image = substr($create_id, 0, 6);
                     $image .= '.jpg';
                     
+                    //image_id確認用呼び出し
+                    $sql_confirm = $pdo->prepare('SELECT image_id FROM note WHERE image_id=?');
+                    $sql_confirm->execute([$image]);
+                    $imgResult = $sql_confirm->fetch(PDO::FETCH_ASSOC);
+                    
+                    //image_idがすでにあった場合、違う部分の文字列を返す
+                    while (!empty($imgResult)) {
+                        $image = substr($create_id, $offset, 6);
+                        $image .= '.jpg';
+                        
+                        $sql_confirm = $pdo->prepare('SELECT image_id FROM note WHERE image_id=?');
+                        $sql_confirm->execute([$image]);
+                        $imgResult = $sql_confirm->fetch(PDO::FETCH_ASSOC);
+                        $offset++;
+                    }
+
+                    //現在時刻取得
+                    date_default_timezone_set('Asia/Tokyo');
+                    $now = date('Y/m/d H:i:s');
+
                     $sql = NULL;
-                    $sql = $pdo->prepare('SELECT image_id FROM note WHERE image_id=?');
-                    $sql->execute([$image]);
-                    $imgResult = $sql->fetch(PDO::FETCH_ASSOC);
+                    $sql = $pdo->prepare('INSERT INTO note VALUES(?, ?, ?, 0, ?, ?)');
+                    $sql->execute([$title, $u_id, $image, $now, $tag]);
+                    
+                    $file_p = 'img/' . $image;
+                    if(move_uploaded_file($_FILES['file']['tmp_name'], $file_p)){
+                        header('Location: http://localhost/new/main/home.php');
+                    }
+
+                }else{
+                    array_push($errmsg, 'そのタイトルは使われています。');
                 }
                 
-                $file_p = 'img/' . $image;
-                $sql = NULL;
-                $sql = $pdo->prepare('INSERT INTO note VALUES(?, ?, ?, 0)');
-                $sql->execute([$title, $u_id, $image]);
-                
-                if(move_uploaded_file($_FILES['file']['tmp_name'], $file_p)){
-                    header('Location: http://localhost/showmenote/main/home.php');
-                }
-                
-            }else{
-                array_push($errmsg, 'そのタイトルは使われています。');
+            } catch (PDOException $e) {
+                print $e->getMessage();
+                exit();
             }
             
-        } catch (PDOException $e) {
-            print $e->getMessage();
-            exit();
+        }else{
+            array_push($errmsg, 'すべて入力・選択してください。');
         }
-        
-    }else{
-        array_push($errmsg, 'すべて入力・選択してください。');
     }
-}
 ?>
 
 <!DOCTYPE html>

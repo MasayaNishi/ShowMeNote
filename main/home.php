@@ -1,3 +1,28 @@
+<?php 
+    session_start();
+    
+    /*
+        $u_id = $_SESSION['user_id'];
+        $u_name = $_SESSION['user_name'];
+    */
+    
+    try {
+        $pdo = new PDO('mysql:host=localhost; dbname=showmenote2; charset=utf8',
+            'root', '');
+        
+        //ページング
+        $page_num = $pdo->prepare('SELECT COUNT(*) FROM note');
+        $page_num->execute([]);
+        $page_num = $page_num->fetchColumn();
+        $pagination = $page_num / 10;
+        $pagination = ceil($page_num / 10);
+        
+    } catch (PDOException $e) {
+        print $e->getMessage();
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,10 +36,9 @@
 </head>
 
 <body>
-<header>
-  <h1>show me note！<br>-ここにロゴが入ります-</h1>
-  <p></p>
-</header>
+  <header>
+  <a href="home.php"> <img src="img/rogo.png" width="1000" height="200" alt="show me note!" class="rogo"></a>
+  </header>
 
 <nav>
   <ul class="menu">
@@ -30,28 +54,75 @@
 <section id="intro">
   <h2 class="h">キーワード検索</h2>
   <main>
-    <table>
     <form action="result.php" method="post">
+     <table>
       <tr>
-          <td><input placeholder="検索" type="text" name="keyword"/></td>
-          <td><input type="submit" name="regist" value="検索"></td>
+        <td><input placeholder="検索" type="text" name="keyword"/></td>
+        <td><input type="submit" name="regist" value="検索"></td>
       </tr>
+     </table>
     </form>
-    </table>
     
 </main>
-  <strong></strong></p>
+  <strong></strong>
 </section>
 
 <section id="cats" class="clearfix">
   <h2 class="h">投稿一覧</h2>
+  
+  	<?php
+  	//現在のページ数を取得する（未入力の場合は1を挿入）
+  	if (isset($_REQUEST['page'])) {
+  	    $page = (int)$_REQUEST['page'];
+  	} else {
+  	    $page = 1;
+  	}
+  	
+  	// スタートのポジションを計算する
+  	if ($page > 1) {
+  	    //２ページ目の場合は、『(2 × 10) - 10 = 10』
+  	    $start = ($page * 10) - 10;
+  	} else {
+  	    $start = 0;
+  	}
+  	
+  	//10件ずつ取り出し
+  	$posts = $pdo->prepare("SELECT * FROM note ORDER BY time DESC LIMIT {$start}, 10");
+  	$posts->execute([]);
+  	$posts = $posts->fetchAll(PDO::FETCH_ASSOC);
+  	
+  	foreach ($posts as $row){
+  	    //user_info情報取得
+  	    $sql2 = $pdo->prepare('SELECT * FROM user_info WHERE user_id=?');
+  	    $sql2->execute([$row['user_id']]);
+  	    $result = $sql2->fetch(PDO::FETCH_ASSOC);
+  	    
+  	    print '<section id="ブロック-投稿">';
+  	    print '<img src="img/' . $result['user_img'] . '" width="80" height="80" class="img-round imgL"><br>';
+  	    print '<h3 class="h-sub">ユーザ名：' . $result['user_name'] . '</h3>';
+  	    print '<a href ="./detail.php?note_id=' . $row['note_id'] . '">';
+  	    print '<section id="ログイン">';
+  	    print '<strong>タイトル：' . $row['note_id'] . '</strong>';
+  	    print '<p class="time">' . $row['time'] . '</p>';
+  	    print '<span>#' . $row['tag_name'] . '</span>';
+  	    print '</section>';
+  	    print '</a>';
+  	    print '</section>';
+  	}
+  	
+  	//aタグ作成(ページング)
+  	for($i=1; $i<=$pagination; $i++){
+  	    print '<a class="botan1" href="home.php?page=' . $i . '">' . $i . '</a>';
+  	}
+  	?>
 
+<!-- 
   <section id="ブロック-投稿">
     <img src="img/komachi.jpg" width="80" height="80" alt="小町" class="img-round imgL"><br>
     <h3 class="h-sub">ユーザー名<span></span></h3>
     <section id="ログイン">
       <strong>タイトル</strong>
-      <p　class="time">時間//右揃えにしたい</p>
+      <p class="time">時間//右揃えにしたい</p>
         <span>#キーワード　#キーワード  </span>
      </section>
     </section>
@@ -64,6 +135,7 @@
     <p class="more clear"><a href="cats/konatsu.html">もっと見る</a></p>
   </section>
 
+ -->
 </section>
 
 <a href="" class="mae  btn  btn--circle-c">

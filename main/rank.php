@@ -1,11 +1,13 @@
 <?php 
     session_start();
     
-    $u_id = $_SESSION['user_id'];
-    $u_name = $_SESSION['user_name'];
+    /*
+        $u_id = $_SESSION['user_id'];
+        $u_name = $_SESSION['user_name'];
+    */
     
     try {
-        $pdo = new PDO('mysql:host=localhost; dbname=showmenote; charset=utf8',
+        $pdo = new PDO('mysql:host=localhost; dbname=showmenote2; charset=utf8',
             'root', '');
         
     } catch (PDOException $e) {
@@ -58,19 +60,27 @@
 
 
 		<?php 
+		  //ポイント上位10件のnote情報取得
 		  $i = 1;
 		  $sql = $pdo->prepare('SELECT * FROM note ORDER BY ランキングポイント合計 DESC LIMIT 10');
 		  $sql->execute([]);
 		  
 		      foreach ($sql as $row){
+		          //user_info情報取得
+		          $sql2 = $pdo->prepare('SELECT * FROM user_info WHERE user_id=?');
+		          $sql2->execute([$row['user_id']]);
+		          $result = $sql2->fetch(PDO::FETCH_ASSOC);
+		          
+		          //画面表示
 		          print '<section>';
 		          print '<h2 class="h-sub">' . $i . '位</h2>';
-		          print '<img src="img/' . $row['image_id'] . '" width="80" height="80" class="img-round imgL"><br>';
-		          print '<h3 class="h-sub">ユーザ名：' . $row['user_id'] . '</h3>';
+		          print '<img src="user_img/' . $result['user_img'] . '" width="80" height="80" class="img-round imgL"><br>';
+		          print '<h3 class="h-sub">ユーザ名：' . htmlspecialchars($result['user_name']) . '</h3>';
 		          print '<a href ="./detail.php?note_id=' . $row['note_id'] . '">';
 		          print '<section id="ログイン">';
-		          print '<strong>タイトル：' . $row['note_id'] . '</strong>' . '<p　class="time">　時間//右揃えにしたい</p>';
-		          print '<span>#キーワード　#キーワード  </span>';
+		          print '<strong>タイトル：' . htmlspecialchars($row['note_id']) . '</strong>';
+                  print '<p class="time">' . $row['time'] . '</p>';
+                  print '<span>#' . htmlspecialchars($row['tag_name']) . '</span>';
 		          print '</section>';
 		          print '</a>';
 		          print '</section>';
@@ -78,6 +88,7 @@
 		      }
 
 		?>
+
 <!-- 
       <section>
         <h2 class="h-sub">1位</h2>

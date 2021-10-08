@@ -7,7 +7,7 @@
         $pwd = $_REQUEST['password'];
 
         try{
-            $pdo = new PDO('mysql:host=localhost; dbname=showmenote; charset=utf8',
+            $pdo = new PDO('mysql:host=localhost; dbname=showmenote2; charset=utf8',
                 'root', '');
             $sql = $pdo->prepare('SELECT * FROM user WHERE BINARY user_id=? AND BINARY password=?');
             $sql->execute([$id, $pwd]);
@@ -16,11 +16,13 @@
             $pdo = NULL;
 
             if($result != NULL){
+                
                 $_SESSION['user_id'] = $result['user_id'];
                 $_SESSION['user_name'] = $result['user_name'];
                 
-                header('Location: http://localhost/ShowMeNote2/main/home.php');
+                header('Location: http://localhost/new/main/home.php');
                 exit();
+                
             }else{
                 print 'ユーザIDまたはパスワードが誤りです。';
             }
@@ -47,19 +49,19 @@
 
     </head>
     <main>
-        <table>
             <form action="" method="post">
-                <tr>
-	                <td><input placeholder="ユーザID" type="text" name="user_id" /></td>
-                </tr>
-                <tr>
-	                <td><input placeholder="パスワード" type="password" name="password" /></td>
-                </tr>
-                <tr>
-        			<td><input type="submit" name="login" value="ログイン"></td>
-        		</tr>
+            	<table>
+                    <tr>
+    	                <td><input placeholder="ユーザID" type="text" name="user_id" /></td>
+                    </tr>
+                    <tr>
+    	                <td><input placeholder="パスワード" type="password" name="password" /></td>
+                    </tr>
+                    <tr>
+            			<td><input type="submit" name="login" value="ログイン"></td>
+            		</tr>
+            	</table>
             </form>
-        </table>
     </main>
     <footer>
 
